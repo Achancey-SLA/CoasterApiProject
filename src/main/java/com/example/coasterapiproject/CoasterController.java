@@ -5,7 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ObjectOutput;
@@ -18,6 +22,12 @@ public class CoasterController {
 
     public TextField searchField;
     public ListView<Coaster> resultsList;
+    public Label parkLabel;
+    public Label nameLabel;
+    public Label speedLabel;
+    public Label inversionsLabel;
+    public Label heightLabel;
+    public Label lengthLabel;
 
     public void initialize() throws Exception {
         Coaster.coasters = new ArrayList<>();
@@ -99,13 +109,62 @@ public class CoasterController {
             ObjectMapper objectMapper = new ObjectMapper();
             String output = APISearch("https://captaincoaster.com/api/coasters/"+selectedCoaster.id);
             JsonNode jsonNode = objectMapper.readTree(output);
-            selectedCoaster.height = (float) jsonNode.get("height").asDouble();
-            selectedCoaster.speed = (float) jsonNode.get("speed").asDouble();
+            try {
+                selectedCoaster.height = (float) jsonNode.get("height").asDouble();
+            }
+            catch(Exception ex){}
+            try {
+                selectedCoaster.speed = (float) jsonNode.get("speed").asDouble();
+            }
+            catch(Exception ex){}
+            try {
             selectedCoaster.length = (float) jsonNode.get("length").asDouble();
-            selectedCoaster.inversionsNumber = jsonNode.get("inversionsNumber").asInt();
-            selectedCoaster.includesDetails = true;
-            System.out.println(selectedCoaster.getInformation());
+            }
+            catch(Exception ex){}
+            try {
+                selectedCoaster.inversionsNumber = jsonNode.get("inversionsNumber").asInt();
+            }
+            catch(Exception ex){}
+            try {
+                selectedCoaster.imageFileName = jsonNode.get("mainImage").get("filename").asText();
+            }
+            catch(Exception ex){}
+            try {
+                selectedCoaster.includesDetails = true;
+            }
+            catch(Exception ex){}
+            try {
+                System.out.println(selectedCoaster.getInformation());
+            }
+            catch(Exception ex){}
         }
+
+
+        URL imageURL = new URL("captaincoaster.com/api/contexts/Image"+selectedCoaster.imageFileName);
+        BufferedImage image = ImageIO.read(imageURL);
+
+
+        parkLabel.setText("Park: "+selectedCoaster.park);
+        nameLabel.setText(selectedCoaster.name);
+        if(selectedCoaster.length==0){
+            lengthLabel.setText("N/A");
+        }
+        else{
+            lengthLabel.setText("Length: "+String.valueOf(selectedCoaster.length)+"m");
+        }
+        if(selectedCoaster.height==0){
+            heightLabel.setText("Height: N/A");
+        }
+        else{
+            heightLabel.setText("Height: "+String.valueOf(selectedCoaster.height)+" m");
+        }
+        if(selectedCoaster.speed==0){
+            speedLabel.setText("Speed: N/A");
+        }
+        else{
+            speedLabel.setText("Speed: "+String.valueOf(selectedCoaster.speed+" Km/h"));
+        }
+        inversionsLabel.setText("Inversions: "+String.valueOf(selectedCoaster.inversionsNumber));
 
     }
 

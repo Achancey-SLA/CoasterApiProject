@@ -2,6 +2,7 @@ package com.example.coasterapiproject;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,9 @@ public class Coaster {
     @JsonProperty("name")
     public String name;
 
+    public String imageFileName;
     public String park;
+    public Image image;
 
     public boolean includesDetails;
 
