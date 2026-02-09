@@ -8,20 +8,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class CoasterController {
+public class CoasterdleController {
 
 
     public TextField searchField;
     public ListView<Coaster> resultsList;
     public Label parkLabel;
-    public Label nameLabel;
     public Label speedLabel;
     public Label inversionsLabel;
     public Label heightLabel;
@@ -152,7 +151,7 @@ public class CoasterController {
 
 
         parkLabel.setText("Park: "+selectedCoaster.park);
-        nameLabel.setText(selectedCoaster.name);
+
         if(selectedCoaster.length==0){
             lengthLabel.setText("N/A");
         }
