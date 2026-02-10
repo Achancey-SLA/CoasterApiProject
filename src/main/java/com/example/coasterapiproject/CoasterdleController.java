@@ -25,7 +25,6 @@ public class CoasterdleController {
     public Label inversionsLabel;
     public Label heightLabel;
     public Label lengthLabel;
-    public ImageView selectedImageView;
     Image missingImage;
 
     public void initialize() throws Exception {
@@ -115,6 +114,10 @@ public class CoasterdleController {
             }
             catch(Exception ex){}
             try {
+                selectedCoaster.manufacturer = jsonNode.get("manufacturer").get("name").asText();
+            }
+            catch(Exception ex){}
+            try {
                 selectedCoaster.speed = (float) jsonNode.get("speed").asDouble();
             }
             catch(Exception ex){}
@@ -126,10 +129,7 @@ public class CoasterdleController {
                 selectedCoaster.inversionsNumber = jsonNode.get("inversionsNumber").asInt();
             }
             catch(Exception ex){}
-            try {
-                selectedCoaster.imageFileName = jsonNode.get("mainImage").get("filename").asText();
-            }
-            catch(Exception ex){}
+
             try {
                 selectedCoaster.includesDetails = true;
             }
@@ -140,14 +140,7 @@ public class CoasterdleController {
             catch(Exception ex){}
         }
 
-        try {
-            URL imageURL = new URL("https://pictures.captaincoaster.com/1440x1440/" + selectedCoaster.imageFileName);
-            Image image = new Image(imageURL.openStream());
-            selectedImageView.setImage(image);
-        }
-        catch(Exception ex){
-            selectedImageView.setImage(missingImage);
-        }
+
 
 
         parkLabel.setText("Park: "+selectedCoaster.park);

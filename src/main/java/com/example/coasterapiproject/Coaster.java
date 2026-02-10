@@ -25,6 +25,7 @@ public class Coaster {
 
     public String imageFileName;
     public String park;
+    public String manufacturer;
     public Image image;
 
     public boolean includesDetails;
@@ -161,6 +162,7 @@ public class Coaster {
                 ", speed=" + speed +
                 ", name='" + name + '\'' +
                 ", park='" + park + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
                 '}';
     }
 }
