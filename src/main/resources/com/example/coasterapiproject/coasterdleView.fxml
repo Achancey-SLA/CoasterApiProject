@@ -1,49 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coasterapiproject.CoasterdleController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.coasterapiproject.CoasterdleController">
    <children>
-      <TextField fx:id="searchField" layoutX="14.0" layoutY="35.0" onAction="#searchCoasters" prefHeight="26.0" prefWidth="152.0" />
-      <ListView fx:id="resultsList" layoutX="14.0" layoutY="70.0" onKeyReleased="#getDetails" onMouseReleased="#getDetails" prefHeight="294.0" prefWidth="152.0" />
-      <Label alignment="CENTER" layoutX="236.0" layoutY="33.0" prefHeight="30.0" prefWidth="296.0" text="Coasterdle" textAlignment="CENTER">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f2a24d" height="115.0" layoutX="-66.0" layoutY="-55.0" strokeType="OUTSIDE" strokeWidth="40.0" width="924.0">
+         <stroke>
+            <RadialGradient centerX="0.4667590027700831" centerY="0.19596199524940616" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" opacity="0.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </stroke>
+      </Rectangle>
+      <GridPane layoutX="231.0" layoutY="189.0">
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="131.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="backgroundImage" fitHeight="546.0" fitWidth="624.0" layoutX="134.0" layoutY="86.0" mouseTransparent="true" opacity="0.51" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../background.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="122.0" layoutY="507.0" prefHeight="63.0" prefWidth="603.0" text="Which Coaster is Taller?">
          <font>
-            <Font name="Andale Mono" size="25.0" />
+            <Font name="Arial Bold" size="46.0" />
          </font>
       </Label>
-      <VBox layoutX="24.0" layoutY="409.0" prefHeight="158.0" prefWidth="307.0">
-         <children>
-            <Label fx:id="parkLabel" prefHeight="29.0" prefWidth="311.0" text="P">
-               <font>
-                  <Font name="Andale Mono" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="heightLabel" prefHeight="30.0" prefWidth="310.0" text="P">
-               <font>
-                  <Font name="Andale Mono" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="lengthLabel" prefHeight="30.0" prefWidth="306.0" text="P">
-               <font>
-                  <Font name="Andale Mono" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="inversionsLabel" prefHeight="30.0" prefWidth="311.0" text="P">
-               <font>
-                  <Font name="Andale Mono" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="speedLabel" prefHeight="30.0" prefWidth="315.0" text="P">
-               <font>
-                  <Font name="Andale Mono" size="25.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
+      <Label layoutX="529.0" layoutY="64.0" prefHeight="63.0" prefWidth="266.0" text="Score:">
+         <font>
+            <Font name="Arial Bold" size="46.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logoImage" fitHeight="106.0" fitWidth="537.0" layoutX="143.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

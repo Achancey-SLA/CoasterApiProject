@@ -16,19 +16,16 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class CoasterdleController {
+    public ImageView backgroundImage;
+    public ImageView logoImage;
 
 
-    public TextField searchField;
-    public ListView<Coaster> resultsList;
-    public Label parkLabel;
-    public Label speedLabel;
-    public Label inversionsLabel;
-    public Label heightLabel;
-    public Label lengthLabel;
     Image missingImage;
 
     public void initialize() throws Exception {
+        backgroundImage.setImage(new Image(new FileInputStream("src/background.png")));
         missingImage = new Image(new FileInputStream("src/noImage.jpg"));
+        logoImage.setImage(new Image(new FileInputStream("src/logo.png")));
         Coaster.coasters = new ArrayList<>();
         String output = APISearch("https://captaincoaster.com/api/coasters?page=1&order%5Bid%5D=asc&order%5Brank%5D=asc");
 
@@ -45,8 +42,6 @@ public class CoasterdleController {
 
             System.out.println("OBJECT: " + newCoaster);
             Coaster.coasters.add(newCoaster);
-            resultsList.getItems().add(newCoaster);
-
         }
 
 
@@ -78,32 +73,10 @@ public class CoasterdleController {
 
 }
 
-    public void searchCoasters() throws Exception{
-        String searchTerm = searchField.getText().replace(" ","%20");
-        String output = APISearch("https://captaincoaster.com/api/coasters?page=1&name="+searchTerm+"&order%5Bid%5D=asc&order%5Brank%5D=asc");
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(output);
-        Coaster.coasters.clear();
-        resultsList.getItems().clear();
-        JsonNode jsonCoasterArray = jsonNode.get("member");
-        for (JsonNode eachCoaster : jsonCoasterArray) {
-            Coaster newCoaster = new Coaster();
-            newCoaster.name = eachCoaster.get("name").asText();
-            newCoaster.id = eachCoaster.get("id").asInt();
-            newCoaster.park = eachCoaster.get("park").get("name").asText();
-            newCoaster.includesDetails = false;
 
-            System.out.println("OBJECT: " + newCoaster);
-            Coaster.coasters.add(newCoaster);
-            resultsList.getItems().add(newCoaster);
 
-        }
+    public void getDetails(Coaster selectedCoaster) throws Exception{
 
-    }
-
-    public void getDetails() throws Exception{
-
-        Coaster selectedCoaster = resultsList.getSelectionModel().getSelectedItem();
         System.out.println(selectedCoaster);
         if(!selectedCoaster.includesDetails){
             ObjectMapper objectMapper = new ObjectMapper();
@@ -139,31 +112,6 @@ public class CoasterdleController {
             }
             catch(Exception ex){}
         }
-
-
-
-
-        parkLabel.setText("Park: "+selectedCoaster.park);
-
-        if(selectedCoaster.length==0){
-            lengthLabel.setText("N/A");
-        }
-        else{
-            lengthLabel.setText("Length: "+String.valueOf(selectedCoaster.length)+"m");
-        }
-        if(selectedCoaster.height==0){
-            heightLabel.setText("Height: N/A");
-        }
-        else{
-            heightLabel.setText("Height: "+String.valueOf(selectedCoaster.height)+" m");
-        }
-        if(selectedCoaster.speed==0){
-            speedLabel.setText("Speed: N/A");
-        }
-        else{
-            speedLabel.setText("Speed: "+String.valueOf(selectedCoaster.speed+" Km/h"));
-        }
-        inversionsLabel.setText("Inversions: "+String.valueOf(selectedCoaster.inversionsNumber));
 
     }
 
