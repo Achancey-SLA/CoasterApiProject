@@ -26,81 +26,12 @@ public class Coaster {
     public String imageFileName;
     public String park;
     public String manufacturer;
+    public String country;
     public Image image;
 
     public boolean includesDetails;
 
     public static ArrayList<Coaster> coasters;
-
-    //{
-    //  "@context": "/api/contexts/Coaster",
-    //  "@id": "/api/coasters/1",
-    //  "@type": "Coaster",
-    //  "id": 1,
-    //  "name": "Goudurix",
-    //  "materialType": {
-    //    "@type": "MaterialType",
-    //    "@id": "/api/.well-known/genid/e7ae9c250cbe0612b4b5",
-    //    "name": "Steel"
-    //  },
-    //  "seatingType": {
-    //    "@type": "SeatingType",
-    //    "@id": "/api/.well-known/genid/946b88801295b26f6e76",
-    //    "name": "Sit Down"
-    //  },
-    //  "model": {
-    //    "@id": "/api/models/43",
-    //    "@type": "Model",
-    //    "name": "Vekoma MK-1200"
-    //  },
-    //  "speed": 90,
-    //  "height": 36,
-    //  "length": 950,
-    //  "inversionsNumber": 7,
-    //  "manufacturer": {
-    //    "@type": "Manufacturer",
-    //    "@id": "/api/.well-known/genid/22da3b97f28a15a27715",
-    //    "name": "Vekoma"
-    //  },
-    //  "restraint": {
-    //    "@id": "/api/restraints/1",
-    //    "@type": "Restraint",
-    //    "name": "restraint.shoulder"
-    //  },
-    //  "launchs": [
-    //    {
-    //      "@id": "/api/launches/1",
-    //      "@type": "Launch",
-    //      "name": "launch.lift.chain"
-    //    }
-    //  ],
-    //  "park": {
-    //    "@id": "/api/parks/49",
-    //    "@type": "Park",
-    //    "name": "Parc Astérix",
-    //    "country": {
-    //      "@type": "Country",
-    //      "@id": "/api/.well-known/genid/a7b9229d81d90b5621ff",
-    //      "name": "country.france"
-    //    }
-    //  },
-    //  "status": {
-    //    "@id": "/api/statuses/1",
-    //    "@type": "Status",
-    //    "name": "status.operating"
-    //  },
-    //  "openingDate": "1989-04-30T00:00:00+02:00",
-    //  "totalRatings": 3055,
-    //  "validDuels": 1860,
-    //  "score": "20.32258064516",
-    //  "rank": 1462,
-    //  "mainImage": {
-    //    "@id": "/api/images/10312",
-    //    "@type": "Image",
-    //    "filename": "fb9e0178-982f-466b-b71a-71f1c03a6f0c.jpeg"
-    //  }
-    //}
-
 
     public Coaster() {
     }
@@ -162,7 +93,7 @@ public class Coaster {
                 ", speed=" + speed +
                 ", name='" + name + '\'' +
                 ", park='" + park + '\'' +
-                ", manufacturer='" + manufacturer + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +" country: "+country+
                 '}';
     }
 }
