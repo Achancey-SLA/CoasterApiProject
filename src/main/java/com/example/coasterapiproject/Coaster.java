@@ -80,7 +80,7 @@ public class Coaster {
 
     @Override
     public String toString() {
-        return name + " ("+park+")";
+        return name + " ("+park+") "+ id;
     }
 
 

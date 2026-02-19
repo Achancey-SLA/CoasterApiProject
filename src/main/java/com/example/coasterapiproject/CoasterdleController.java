@@ -21,10 +21,14 @@ public class CoasterdleController {
     public ImageView backgroundImage;
     public ImageView logoImage;
     public ArrayList<Integer> viableIDs;
+    public ArrayList<String> questions;
     public Coaster rightCoaster;
     public Coaster leftCoaster;
     public ImageView leftView;
     public ImageView rightView;
+    public Label leftLabel;
+    public Label rightLabel;
+    public int currentQuestion;
 
     Random random;
 
@@ -34,7 +38,11 @@ public class CoasterdleController {
     public void initialize() throws Exception {
 
         random = new Random();
-        viableIDs = new ArrayList<>(Arrays.asList(1,2,3));
+        viableIDs = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,170));
+        questions = new ArrayList<>(Arrays.asList(
+                "Which coaster is taller?",
+                "Which coaster is longer?"
+                ));
         backgroundImage.setImage(new Image(new FileInputStream("src/background.png")));
         missingImage = new Image(new FileInputStream("src/noImage.jpg"));
         logoImage.setImage(new Image(new FileInputStream("src/logo.png")));
@@ -45,13 +53,27 @@ public class CoasterdleController {
     }
 
     public void createQuestion() throws Exception{
+        currentQuestion = random.nextInt();
+
         try{
             leftCoaster = rightCoaster;
         }
         catch (Exception ex){}
         rightCoaster = new Coaster();
         ObjectMapper objectMapper = new ObjectMapper();
-        String output = APISearch("https://captaincoaster.com/api/coasters/"+random.nextInt(1,(viableIDs.size())));
+        int nextId = viableIDs.get(random.nextInt(0,(viableIDs.size())));
+
+        try{
+            System.out.println(nextId+"  "+leftCoaster.id);
+            while(leftCoaster.id == nextId){
+                System.out.println("reroll");
+                nextId = viableIDs.get(random.nextInt(0,(viableIDs.size())));
+
+            }
+        } catch (Exception e) {
+            System.out.println("lmao");
+        }
+        String output = APISearch("https://captaincoaster.com/api/coasters/"+nextId);
         JsonNode jsonNode = objectMapper.readTree(output);
         rightCoaster.name = jsonNode.get("name").asText();
         rightCoaster.park = jsonNode.get("park").asText();
@@ -81,15 +103,17 @@ public class CoasterdleController {
             rightCoaster.image =new Image( new URL("https://pictures.captaincoaster.com/1440x1440/" + rightCoaster.imageFileName).openStream());
         }
         catch(Exception ex){}
-        try {
+        rightCoaster.id = jsonNode.get("id").asInt();
             rightCoaster.includesDetails = true;
-        }
-        catch(Exception ex){}
+
 
             System.out.println(rightCoaster.getInformation());
         rightView.setImage(rightCoaster.image);
+        rightLabel.setText(rightCoaster.name);
+
         try{
             leftView.setImage(leftCoaster.image);
+            leftLabel.setText(leftCoaster.name);
         }catch (Exception ex){}
 
 
@@ -119,6 +143,15 @@ public class CoasterdleController {
         return response.toString();
 
 }
+    public void onLeftButton() throws Exception{
+
+        createQuestion();
+    }
+
+    public void onRightButton()throws Exception{{
+        createQuestion();
+    }
+    }
 
 
 
