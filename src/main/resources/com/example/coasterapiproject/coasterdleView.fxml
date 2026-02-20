@@ -52,12 +52,12 @@
             <Image url="@../../../../../background.png" />
          </image>
       </ImageView>
-      <Label layoutX="122.0" layoutY="507.0" prefHeight="63.0" prefWidth="603.0" text="Which Coaster is Taller?">
+      <Label fx:id="questionText" layoutX="122.0" layoutY="507.0" prefHeight="63.0" prefWidth="603.0" text="Which Coaster is Taller?">
          <font>
             <Font name="Arial Bold" size="46.0" />
          </font>
       </Label>
-      <Label layoutX="529.0" layoutY="64.0" prefHeight="63.0" prefWidth="266.0" text="Score:">
+      <Label fx:id="scoreLabel" layoutX="529.0" layoutY="64.0" prefHeight="63.0" prefWidth="266.0" text="Score:">
          <font>
             <Font name="Arial Bold" size="46.0" />
          </font>
@@ -67,12 +67,12 @@
             <Image url="@../../../../../logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="75.0" layoutY="441.0" mnemonicParsing="false" onAction="#onLeftButton" prefHeight="50.0" prefWidth="300.0" text="This One!">
+      <Button fx:id="leftButton" layoutX="75.0" layoutY="441.0" mnemonicParsing="false" onAction="#onLeftButton" prefHeight="50.0" prefWidth="300.0" text="This One!">
          <font>
             <Font size="23.0" />
          </font>
       </Button>
-      <Button layoutX="399.0" layoutY="441.0" mnemonicParsing="false" onAction="#onRightButton" prefHeight="50.0" prefWidth="300.0" text="This One!">
+      <Button fx:id="rightButton" layoutX="399.0" layoutY="441.0" mnemonicParsing="false" onAction="#onRightButton" prefHeight="50.0" prefWidth="300.0" text="This One!">
          <font>
             <Font size="23.0" />
          </font>

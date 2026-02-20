@@ -2,6 +2,7 @@ package com.example.coasterapiproject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -28,7 +29,12 @@ public class CoasterdleController {
     public ImageView rightView;
     public Label leftLabel;
     public Label rightLabel;
+    public Label questionText;
+    public Button leftButton;
+    public Button rightButton;
     public int currentQuestion;
+    public int score;
+    public Label scoreLabel;
 
     Random random;
 
@@ -36,7 +42,10 @@ public class CoasterdleController {
     Image missingImage;
 
     public void initialize() throws Exception {
+        //remove later
+        IDfinder.findIDs();
 
+        score = 0;
         random = new Random();
         viableIDs = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,170));
         questions = new ArrayList<>(Arrays.asList(
@@ -53,7 +62,14 @@ public class CoasterdleController {
     }
 
     public void createQuestion() throws Exception{
-        currentQuestion = random.nextInt();
+        scoreLabel.setText("Score: "+score);
+
+        leftButton.setDisable(true);
+        rightButton.setDisable(true);
+        currentQuestion = random.nextInt(0,questions.size());
+        System.out.println(currentQuestion);
+        questionText.setText(questions.get(currentQuestion));
+
 
         try{
             leftCoaster = rightCoaster;
@@ -64,7 +80,7 @@ public class CoasterdleController {
         int nextId = viableIDs.get(random.nextInt(0,(viableIDs.size())));
 
         try{
-            System.out.println(nextId+"  "+leftCoaster.id);
+
             while(leftCoaster.id == nextId){
                 System.out.println("reroll");
                 nextId = viableIDs.get(random.nextInt(0,(viableIDs.size())));
@@ -116,6 +132,8 @@ public class CoasterdleController {
             leftLabel.setText(leftCoaster.name);
         }catch (Exception ex){}
 
+        leftButton.setDisable(false);
+        rightButton.setDisable(false);
 
     }
 
@@ -144,11 +162,42 @@ public class CoasterdleController {
 
 }
     public void onLeftButton() throws Exception{
-
+        if(currentQuestion == 0){
+            if(leftCoaster.height>=rightCoaster.height){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
+        if(currentQuestion == 1){
+            if(leftCoaster.length>=rightCoaster.length){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
         createQuestion();
     }
 
     public void onRightButton()throws Exception{{
+        if(currentQuestion == 0){
+            if(leftCoaster.height<=rightCoaster.height){
+                score+=1;
+            }else{
+                score =0;
+            }
+        }
+        if(currentQuestion == 1){
+            if(leftCoaster.length<=rightCoaster.length){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
+
         createQuestion();
     }
     }
