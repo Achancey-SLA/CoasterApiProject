@@ -77,14 +77,14 @@
             <Font size="23.0" />
          </font>
       </Button>
-      <Label fx:id="leftLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="72.0" layoutY="183.0" prefHeight="50.0" prefWidth="300.0" text="Label" textAlignment="CENTER">
+      <Label fx:id="leftLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="81.0" layoutY="150.0" prefHeight="100.0" prefWidth="300.0" text="Label" textAlignment="CENTER">
          <font>
-            <Font name="Arial" size="40.0" />
+            <Font name="Arial" size="30.0" />
          </font>
       </Label>
-      <Label fx:id="rightLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="183.0" prefHeight="50.0" prefWidth="300.0" text="Label" textAlignment="CENTER">
+      <Label fx:id="rightLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="150.0" prefHeight="100.0" prefWidth="300.0" text="Label" textAlignment="CENTER">
          <font>
-            <Font name="Arial" size="40.0" />
+            <Font name="Arial" size="30.0" />
          </font>
       </Label>
       <HBox alignment="CENTER" layoutX="397.0" layoutY="241.0" prefHeight="200.0" prefWidth="300.0">
