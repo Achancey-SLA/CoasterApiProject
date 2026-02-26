@@ -28,6 +28,7 @@ public class Coaster {
     public String manufacturer;
     public String country;
     public Image image;
+    public int year;
 
     public boolean includesDetails;
 

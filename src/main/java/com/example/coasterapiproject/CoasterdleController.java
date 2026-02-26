@@ -64,7 +64,9 @@ public class CoasterdleController {
                 6218,6253,6254,6256,6257,6261,6262,6328,6333,6371,6420,6421,6461,6462,6465,6504));
         questions = new ArrayList<>(Arrays.asList(
                 "Which coaster is taller?",
-                "Which coaster is longer?"
+                "Which coaster is longer?",
+                "Which coaster is older?",
+                "Which goes upside down more?"
                 ));
         backgroundImage.setImage(new Image(new FileInputStream("src/background.png")));
         missingImage = new Image(new FileInputStream("src/noImage.jpg"));
@@ -108,6 +110,13 @@ public class CoasterdleController {
         rightCoaster.name = jsonNode.get("name").asText();
         rightCoaster.park = jsonNode.get("park").asText();
         rightCoaster.country = jsonNode.get("park").get("country").get("name").asText();
+        try {
+            rightCoaster.year = Integer.parseInt((jsonNode.get("openingDate").asText()).substring(0, 4));
+        }
+        catch(Exception ex){
+            rightCoaster.year = 0;
+        }
+        System.out.println(rightCoaster.year);
         try {
             rightCoaster.height = (float) jsonNode.get("height").asDouble();
         }
@@ -196,6 +205,22 @@ public class CoasterdleController {
                 score = 0;
             }
         }
+        if(currentQuestion == 2){
+            if(leftCoaster.year<=rightCoaster.year || rightCoaster.year ==0){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
+        if(currentQuestion == 3){
+            if(leftCoaster.inversionsNumber>=rightCoaster.inversionsNumber){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
         createQuestion();
     }
 
@@ -209,6 +234,22 @@ public class CoasterdleController {
         }
         if(currentQuestion == 1){
             if(leftCoaster.length<=rightCoaster.length){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
+        if(currentQuestion == 2){
+            if(leftCoaster.year>=rightCoaster.year || leftCoaster.year ==0){
+                score+=1;
+            }
+            else{
+                score = 0;
+            }
+        }
+        if(currentQuestion == 3){
+            if(leftCoaster.inversionsNumber<=rightCoaster.inversionsNumber){
                 score+=1;
             }
             else{

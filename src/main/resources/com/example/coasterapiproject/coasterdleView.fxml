@@ -52,7 +52,7 @@
             <Image url="@../../../../../background.png" />
          </image>
       </ImageView>
-      <Label fx:id="questionText" layoutX="122.0" layoutY="507.0" prefHeight="63.0" prefWidth="603.0" text="Which Coaster is Taller?">
+      <Label fx:id="questionText" alignment="CENTER" layoutX="11.0" layoutY="507.0" prefHeight="63.0" prefWidth="786.0" text="Which Coaster is Taller?">
          <font>
             <Font name="Arial Bold" size="46.0" />
          </font>
