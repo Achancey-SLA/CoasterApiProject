@@ -59,10 +59,15 @@
             <Font size="30.0" />
          </font>
       </Label>
-      <CheckBox fx:id="seedCheck" layoutX="289.0" layoutY="511.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="199.0" text="Set Seed">
+      <CheckBox fx:id="seedCheck" layoutX="289.0" layoutY="511.0" mnemonicParsing="false" onAction="#seedChecked" prefHeight="40.0" prefWidth="199.0" text="Set Seed">
          <font>
             <Font size="30.0" />
          </font>
       </CheckBox>
+      <Label fx:id="seedWarning" layoutX="178.0" layoutY="398.0" prefHeight="15.0" prefWidth="440.0" text="(Seeded games will not count for high score)" textFill="RED">
+         <font>
+            <Font name="Arial" size="21.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

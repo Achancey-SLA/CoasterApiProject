@@ -2,6 +2,7 @@ package com.example.coasterapiproject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -46,6 +47,10 @@ public class CoasterdleController {
 
         score = 0;
         random = new Random();
+        if(StartController.useSeed){
+            random.setSeed(StartController.seed.hashCode());
+        }
+
         viableIDs = new ArrayList<>(Arrays.asList(170,174,175,176,178,181,183,184,186,187,189,193,194,195,196,197,199,201,202,208,212,217,218,228,234,
                 236,245,256,260,261,263,264,265,269,270,272,275,277,282,283,284,285,288,289,302,303,304,305,306,307,311,314,315,324,326,358,360,361,362,
                 363,364,365,370,381,390,392,400,403,404,409,410,411,412,414,418,419,420,423,424,425,427,428,429,430,432,438,440,448,449,451,456,458,459,
@@ -78,6 +83,12 @@ public class CoasterdleController {
     }
 
     public void createQuestion() throws Exception{
+        if(score>StartController.highScore && !StartController.useSeed){
+            StartController.highScore = score;
+        }
+
+
+
         scoreLabel.setText("Score: "+score);
 
         leftButton.setDisable(true);
@@ -164,6 +175,10 @@ public class CoasterdleController {
 
     }
 
+    public void die() throws Exception{
+        score = 0;
+        CoasterApiApplication.resetScene();
+    }
 
 
     public String APISearch(String urlString) throws Exception{
@@ -194,7 +209,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
         if(currentQuestion == 1){
@@ -202,7 +217,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
         if(currentQuestion == 2){
@@ -210,7 +225,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
         if(currentQuestion == 3){
@@ -218,7 +233,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
         createQuestion();
@@ -229,7 +244,7 @@ public class CoasterdleController {
             if(leftCoaster.height<=rightCoaster.height){
                 score+=1;
             }else{
-                score =0;
+                die();
             }
         }
         if(currentQuestion == 1){
@@ -237,7 +252,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
         if(currentQuestion == 2){
@@ -245,7 +260,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
         if(currentQuestion == 3){
@@ -253,7 +268,7 @@ public class CoasterdleController {
                 score+=1;
             }
             else{
-                score = 0;
+                die();
             }
         }
 

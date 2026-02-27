@@ -29,4 +29,11 @@ public class CoasterApiApplication extends Application {
         mainStage.setScene(newScene);
 
     }
+
+    public static void resetScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(CoasterApiApplication.class.getResource("startView.fxml"));
+        Scene newScene = new Scene(fxmlLoader.load(), 800, 600);
+        mainStage.setScene(newScene);
+
+    }
 }
