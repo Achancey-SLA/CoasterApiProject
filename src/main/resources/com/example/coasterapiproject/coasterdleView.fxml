@@ -97,5 +97,10 @@
             <ImageView fx:id="leftView" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
+      <Label fx:id="highScoreLabel" layoutX="22.0" layoutY="64.0" prefHeight="63.0" prefWidth="373.0" text="High Score:">
+         <font>
+            <Font name="Arial Bold" size="46.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

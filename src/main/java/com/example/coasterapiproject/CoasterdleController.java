@@ -2,11 +2,8 @@ package com.example.coasterapiproject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -36,6 +33,9 @@ public class CoasterdleController {
     public int currentQuestion;
     public int score;
     public Label scoreLabel;
+    public Label highScoreLabel;
+    public static long seed;
+    public String correctManufacturer;
 
     Random random;
 
@@ -50,6 +50,9 @@ public class CoasterdleController {
         if(StartController.useSeed){
             random.setSeed(StartController.seed.hashCode());
         }
+
+
+
 
         viableIDs = new ArrayList<>(Arrays.asList(170,174,175,176,178,181,183,184,186,187,189,193,194,195,196,197,199,201,202,208,212,217,218,228,234,
                 236,245,256,260,261,263,264,265,269,270,272,275,277,282,283,284,285,288,289,302,303,304,305,306,307,311,314,315,324,326,358,360,361,362,
@@ -71,7 +74,8 @@ public class CoasterdleController {
                 "Which coaster is taller?",
                 "Which coaster is longer?",
                 "Which coaster is older?",
-                "Which goes upside down more?"
+                "Which goes upside down more?",
+                "Which was made by "
                 ));
         backgroundImage.setImage(new Image(new FileInputStream("src/background.png")));
         missingImage = new Image(new FileInputStream("src/noImage.jpg"));
@@ -82,6 +86,7 @@ public class CoasterdleController {
         System.out.println(leftCoaster);
     }
 
+
     public void createQuestion() throws Exception{
         if(score>StartController.highScore && !StartController.useSeed){
             StartController.highScore = score;
@@ -90,12 +95,16 @@ public class CoasterdleController {
 
 
         scoreLabel.setText("Score: "+score);
+        highScoreLabel.setText("High Score: " + StartController.highScore);
 
         leftButton.setDisable(true);
         rightButton.setDisable(true);
         currentQuestion = random.nextInt(0,questions.size());
+
         System.out.println(currentQuestion);
         questionText.setText(questions.get(currentQuestion));
+
+
 
 
         try{
@@ -105,6 +114,7 @@ public class CoasterdleController {
         rightCoaster = new Coaster();
         ObjectMapper objectMapper = new ObjectMapper();
         int nextId = viableIDs.get(random.nextInt(0,(viableIDs.size())));
+
 
         try{
 
@@ -173,6 +183,28 @@ public class CoasterdleController {
         leftButton.setDisable(false);
         rightButton.setDisable(false);
 
+        if(currentQuestion == 4){
+            if(random.nextBoolean()){
+                try {
+                    correctManufacturer = rightCoaster.manufacturer;
+                } catch (Exception e) {
+                    correctManufacturer = leftCoaster.manufacturer;
+                }
+            }
+            else{
+                try {
+                    correctManufacturer = leftCoaster.manufacturer;
+                } catch (Exception e) {
+                    correctManufacturer = rightCoaster.manufacturer;
+                }
+            }
+            questionText.setText("Which was made by "+correctManufacturer);
+
+            if(correctManufacturer == null){
+                currentQuestion = 1;
+                questionText.setText(questions.get(currentQuestion));
+            }
+        }
     }
 
     public void die() throws Exception{
@@ -236,6 +268,14 @@ public class CoasterdleController {
                 die();
             }
         }
+        if(currentQuestion == 4){
+            if(leftCoaster.manufacturer.equals(correctManufacturer)){
+                score+=1;
+            }
+            else{
+                die();
+            }
+        }
         createQuestion();
     }
 
@@ -265,6 +305,14 @@ public class CoasterdleController {
         }
         if(currentQuestion == 3){
             if(leftCoaster.inversionsNumber<=rightCoaster.inversionsNumber){
+                score+=1;
+            }
+            else{
+                die();
+            }
+        }
+        if(currentQuestion == 4){
+            if(rightCoaster.manufacturer.equals(correctManufacturer)){
                 score+=1;
             }
             else{

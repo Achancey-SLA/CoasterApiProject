@@ -6,6 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 public class StartController {
     static public int highScore;
     public Label highScoreLabel;
@@ -14,7 +19,22 @@ public class StartController {
     public Label seedWarning;
     static public boolean useSeed;
     static public String seed;
-    public void initialize(){
+    public void initialize() throws Exception{
+        int importedHighScore;
+        try {
+            importedHighScore = Integer.parseInt(Files.readString(Paths.get("highScore.txt")));
+        }
+        catch(Exception ex){
+            importedHighScore = 0;
+        }
+
+        if(importedHighScore>highScore){
+            highScore = importedHighScore;
+        }
+
+        Files.writeString(Paths.get("highScore.txt"), String.valueOf(highScore), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+
+
         useSeed = false;
         seedField.setDisable(true);
         seedWarning.setOpacity(0);
