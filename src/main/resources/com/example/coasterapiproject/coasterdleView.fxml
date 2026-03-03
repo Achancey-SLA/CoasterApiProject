@@ -52,7 +52,7 @@
             <Image url="@../../../../../background.png" />
          </image>
       </ImageView>
-      <Label fx:id="questionText" alignment="CENTER" layoutX="11.0" layoutY="507.0" prefHeight="63.0" prefWidth="786.0" text="Which Coaster is Taller?">
+      <Label fx:id="questionText" alignment="CENTER" layoutX="5.0" layoutY="484.0" prefHeight="115.0" prefWidth="786.0" text="Which Coaster is Taller?" wrapText="true">
          <font>
             <Font name="Arial Bold" size="46.0" />
          </font>
@@ -87,17 +87,17 @@
             <Font name="Arial" size="30.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" layoutX="397.0" layoutY="241.0" prefHeight="200.0" prefWidth="300.0">
+      <HBox fx:id="rightBox" alignment="CENTER" layoutX="397.0" layoutY="241.0" prefHeight="200.0" prefWidth="300.0">
          <children>
             <ImageView fx:id="rightView" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="75.0" layoutY="242.0" prefHeight="200.0" prefWidth="300.0">
+      <HBox fx:id="leftBox" alignment="CENTER" layoutX="75.0" layoutY="242.0" prefHeight="200.0" prefWidth="300.0">
          <children>
             <ImageView fx:id="leftView" fitHeight="200.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </HBox>
-      <Label fx:id="highScoreLabel" layoutX="22.0" layoutY="64.0" prefHeight="63.0" prefWidth="373.0" text="High Score:">
+      <Label fx:id="highScoreLabel" layoutX="22.0" layoutY="64.0" prefHeight="63.0" prefWidth="512.0" text="High Score:">
          <font>
             <Font name="Arial Bold" size="46.0" />
          </font>

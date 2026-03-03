@@ -2,10 +2,13 @@ package com.example.coasterapiproject;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import javafx.animation.TranslateTransition;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -36,6 +39,10 @@ public class CoasterdleController {
     public Label highScoreLabel;
     public static long seed;
     public String correctManufacturer;
+    public HBox rightBox;
+    public HBox leftBox;
+    public Image hardImage;
+    boolean gameStarted;
 
     Random random;
 
@@ -43,6 +50,8 @@ public class CoasterdleController {
     Image missingImage;
 
     public void initialize() throws Exception {
+        hardImage = new Image(new FileInputStream("src/hardImage.png"));
+        gameStarted = false;
         //remove later
 
         score = 0;
@@ -84,19 +93,26 @@ public class CoasterdleController {
         createQuestion();
         createQuestion();
         System.out.println(leftCoaster);
+        gameStarted = true;
     }
 
 
     public void createQuestion() throws Exception{
-        if(score>StartController.highScore && !StartController.useSeed){
-            StartController.highScore = score;
-        }
-
 
 
         scoreLabel.setText("Score: "+score);
-        highScoreLabel.setText("High Score: " + StartController.highScore);
-
+        if(StartController.hardMode){
+            if(score>StartController.hardHighScore && !StartController.useSeed){
+                StartController.hardHighScore = score;
+            }
+            highScoreLabel.setText("Hard High Score: " + StartController.hardHighScore);
+        }
+        else {
+            if (score > StartController.highScore && !StartController.useSeed) {
+                StartController.highScore = score;
+            }
+            highScoreLabel.setText("High Score: " + StartController.highScore);
+        }
         leftButton.setDisable(true);
         rightButton.setDisable(true);
         currentQuestion = random.nextInt(0,questions.size());
@@ -170,15 +186,58 @@ public class CoasterdleController {
         rightCoaster.id = jsonNode.get("id").asInt();
             rightCoaster.includesDetails = true;
 
+            if(gameStarted) {
+
+                TranslateTransition transition = new TranslateTransition();
+                transition.setDuration(Duration.seconds(0.3));
+                transition.setNode(rightBox);
+                transition.setByX(-322);
+                transition.playFromStart();
+                transition.setOnFinished(e -> {
+                            rightBox.setTranslateX(0);
+                        }
+                );
+                TranslateTransition transition2 = new TranslateTransition();
+                transition2.setDuration(Duration.seconds(0.3));
+                transition2.setNode(leftBox);
+                transition2.setByX(-622);
+                transition2.playFromStart();
+                transition2.setOnFinished(e -> {
+                            leftBox.setTranslateX(0);
+                            if(!StartController.hardMode) {
+                                rightView.setImage(rightCoaster.image);
+                                try {
+                                    leftView.setImage(leftCoaster.image);
+                                } catch (Exception ex) {
+                                }
+
+                            }
+                    rightLabel.setText(rightCoaster.name + "\n(" + rightCoaster.park + ")");
+
+                    try {
+
+                        leftLabel.setText(leftCoaster.name + "\n(" + leftCoaster.park + ")");
+                    } catch (Exception ex) {
+                    }
+
+                        }
+                );
+            }
+            else{
+                rightView.setImage(rightCoaster.image);
+                rightLabel.setText(rightCoaster.name + "\n(" + rightCoaster.park + ")");
+
+                try {
+                    leftView.setImage(leftCoaster.image);
+                    leftLabel.setText(leftCoaster.name + "\n(" + leftCoaster.park + ")");
+                } catch (Exception ex) {
+                }
+            }
+
+
+
 
             System.out.println(rightCoaster.getInformation());
-        rightView.setImage(rightCoaster.image);
-        rightLabel.setText(rightCoaster.name+"\n("+rightCoaster.park+")");
-
-        try{
-            leftView.setImage(leftCoaster.image);
-            leftLabel.setText(leftCoaster.name+ "\n("+leftCoaster.park+")");
-        }catch (Exception ex){}
 
         leftButton.setDisable(false);
         rightButton.setDisable(false);
@@ -204,6 +263,11 @@ public class CoasterdleController {
                 currentQuestion = 1;
                 questionText.setText(questions.get(currentQuestion));
             }
+        }
+
+        if(StartController.hardMode){
+            leftView.setImage(hardImage);
+            rightView.setImage(hardImage);
         }
     }
 

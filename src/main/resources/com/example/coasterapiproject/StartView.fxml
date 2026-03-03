@@ -43,11 +43,6 @@
             <Image url="@../../../../../background.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="logoImage" fitHeight="106.0" fitWidth="537.0" layoutX="143.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../../logo.png" />
-         </image>
-      </ImageView>
       <Button fx:id="startButton" layoutX="176.0" layoutY="234.0" mnemonicParsing="false" onAction="#startGame" text="Start Game">
          <font>
             <Font name="Arial" size="67.0" />
@@ -69,5 +64,15 @@
             <Font name="Arial" size="21.0" />
          </font>
       </Label>
+      <ImageView fx:id="logoImage" fitHeight="106.0" fitWidth="537.0" layoutX="143.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../logo.png" />
+         </image>
+      </ImageView>
+      <CheckBox fx:id="hardCheck" layoutX="289.0" layoutY="467.0" mnemonicParsing="false" onAction="#hardChecked" prefHeight="40.0" prefWidth="199.0" text="Hard Mode">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </CheckBox>
    </children>
 </Pane>
